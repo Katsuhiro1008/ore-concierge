@@ -158,3 +158,113 @@ function reply(text){
 </script>
 </body>
 </html>
+<script>
+(function(){
+const style=document.createElement('style');
+style.textContent=`
+*{box-sizing:border-box}
+html,body{background:#070812!important;color:#f5f7ff!important}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+body:before{
+content:"";position:fixed;inset:0;z-index:-1;
+background:
+radial-gradient(circle at 20% 0%,rgba(126,87,255,.28),transparent 32%),
+radial-gradient(circle at 100% 30%,rgba(43,126,255,.18),transparent 35%),
+#070812
+}
+.ore2{max-width:680px;margin:auto;min-height:100vh;padding:24px 20px 40px}
+.ore-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px}
+.ore-logo{font-size:14px;color:#9da4bd;letter-spacing:.08em}
+.ore-status{font-size:12px;color:#9b7cff;background:#171326;border:1px solid #33285c;border-radius:20px;padding:7px 11px}
+.ore-hero{margin-bottom:28px}
+.ore-hero small{color:#9da4bd;font-size:13px}
+.ore-hero h1{font-size:38px;line-height:1.15;margin:8px 0 12px;letter-spacing:-.04em}
+.ore-hero h1 span{background:linear-gradient(90deg,#a47cff,#65b7ff);-webkit-background-clip:text;color:transparent}
+.ore-hero p{color:#a8aec1;font-size:14px;line-height:1.7;margin:0}
+.ore-chat{
+background:rgba(20,23,38,.78);border:1px solid #30364e;border-radius:22px;
+padding:6px 8px 6px 16px;display:flex;align-items:center;gap:8px;
+box-shadow:0 12px 40px rgba(0,0,0,.25);margin-bottom:22px
+}
+.ore-chat input{flex:1;background:transparent!important;color:#fff!important;font-size:16px!important;padding:15px 0!important}
+.ore-chat input::placeholder{color:#69718b}
+.ore-send{border:0!important;width:44px!important;height:44px!important;border-radius:50%!important;
+background:linear-gradient(135deg,#8d63ff,#4f8cff)!important;color:white!important;font-size:18px!important}
+.ore-section{margin-top:28px}
+.ore-section-title{font-size:14px;color:#a8aec1;margin-bottom:12px}
+.ore-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ore-card{
+border:1px solid #292f45!important;background:rgba(18,21,34,.82)!important;
+border-radius:17px!important;padding:18px 16px!important;text-align:left;
+color:#f5f7ff!important;min-height:78px
+}
+.ore-card b{display:block;font-size:15px;margin-bottom:5px}
+.ore-card span{font-size:12px;color:#858da5}
+.ore-card:active{transform:scale(.98)}
+.ore-history{
+border:1px solid #292f45;border-radius:17px;padding:15px 16px;
+background:rgba(18,21,34,.72);margin-bottom:9px
+}
+.ore-history b{font-size:14px}.ore-history span{display:block;color:#7f879f;font-size:12px;margin-top:5px}
+.ore-magic{
+width:100%;border:1px solid #493b78!important;background:#171329!important;
+color:#bca9ff!important;border-radius:15px!important;padding:15px!important;margin-top:12px
+}
+.ore-foot{text-align:center;color:#555d74;font-size:11px;margin-top:34px}
+`;
+document.head.appendChild(style);
+
+document.body.innerHTML=`
+<div class="ore2">
+  <div class="ore-top">
+    <div class="ore-logo">ORE CONCIERGE</div>
+    <div class="ore-status">● ONLINE</div>
+  </div>
+
+  <div class="ore-hero">
+    <small>あなた専用のAIコンシェルジュ</small>
+    <h1>今日は、<br><span>何を探そう？</span></h1>
+    <p>食事、旅行、遊び、映画、買い物。<br>条件が決まっていなくても大丈夫。</p>
+  </div>
+
+  <div class="ore-chat">
+    <input id="oreInput" placeholder="例えば「今週末どこか行きたい」">
+    <button class="ore-send" onclick="oreAsk()">↑</button>
+  </div>
+
+  <div class="ore-section">
+    <div class="ore-section-title">カテゴリー</div>
+    <div class="ore-grid">
+      <button class="ore-card" onclick="oreCat('飲食店')">🍽️<b>飲食店</b><span>店・料理・デート</span></button>
+      <button class="ore-card" onclick="oreCat('旅行')">✈️<b>旅行</b><span>宿・旅・非日常</span></button>
+      <button class="ore-card" onclick="oreCat('映画・エンタメ')">🎬<b>映画・エンタメ</b><span>映画・イベント</span></button>
+      <button class="ore-card" onclick="oreCat('遊び・お出かけ')">🚶<b>遊び・お出かけ</b><span>街歩き・体験</span></button>
+      <button class="ore-card" onclick="oreCat('買い物')">🛍️<b>買い物</b><span>商品・比較</span></button>
+      <button class="ore-card" onclick="oreCat('おまかせ')">✦<b>おまかせ</b><span>AIに相談する</span></button>
+    </div>
+  </div>
+
+  <div class="ore-section">
+    <div class="ore-section-title">最近の相談</div>
+    <div class="ore-history"><b>町田で2人で食事</b><span>個室・落ち着いた雰囲気</span></div>
+    <div class="ore-history"><b>1人旅行の候補を探す</b><span>自然・非日常・宿重視</span></div>
+    <button class="ore-magic" onclick="oreCat('おまかせ')">✦　今の気分から提案してもらう</button>
+  </div>
+
+  <div class="ore-foot">ORE CONCIERGE v0.2</div>
+</div>
+`;
+
+window.oreAsk=function(){
+ const v=document.getElementById('oreInput').value.trim();
+ if(!v)return;
+ localStorage.setItem('ore_last_request',v);
+ alert('相談内容を受け取りました。\\n\\n「'+v+'」\\n\\n次の段階でAIにつなぎます。');
+};
+
+window.oreCat=function(v){
+ document.getElementById('oreInput').value=v==='おまかせ'?'今の気分からおすすめを考えて':v+'を探したい';
+ document.getElementById('oreInput').focus();
+};
+})();
+</script>
